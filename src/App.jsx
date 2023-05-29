@@ -1,11 +1,10 @@
-import { Fragment } from 'react'
-import './App.css'
+import UsersList from './components/UsersList/UsersList'
 
 function App() {
 	return (
-		<Fragment>
-			<p>test</p>
-		</Fragment>
+		<>
+			<UsersList />
+		</>
 	)
 }
 
