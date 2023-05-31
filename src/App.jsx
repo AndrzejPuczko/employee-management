@@ -1,22 +1,16 @@
-import UsersList from './components/UsersList/UsersList'
-import './assets/GlobalStyles.scss'
-import styled from 'styled-components'
+import UsersList from './components/_templates/UsersList/UsersList'
+import { GlobalStyle } from './assets/styles/GlobalStyle'
+import { ThemeProvider } from 'styled-components'
+import { theme } from './assets/styles/theme'
+import { Wrapper } from './App.styles'
 
-const Wrapper = styled.div`
-	background-color: #f7f8fa;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100vh;
-`
-
-function App() {
-	return (
+const App = () => (
+	<ThemeProvider theme={theme}>
+		<GlobalStyle />
 		<Wrapper>
 			<UsersList />
 		</Wrapper>
-	)
-}
+	</ThemeProvider>
+)
 
 export default App
