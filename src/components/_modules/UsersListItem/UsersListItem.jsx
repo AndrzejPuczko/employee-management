@@ -3,8 +3,6 @@ import { Wrapper, StyledInfo } from '/@/components/_modules/UsersListItem/UsersL
 import { Average } from '/@/components/_elements/Average/Average.styles.jsx'
 import Button from '/@/components/_elements/Button/Button'
 
-
-
 const UsersListItem = ({ userData: { average, name, lengthOfService } }) => (
 	<Wrapper>
 		<Average value={average}>{average}</Average>
