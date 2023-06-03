@@ -1,16 +1,20 @@
-import { users } from '/@/data/Users'
+import { useState } from 'react'
+import { users as usersData } from '/@/data/Users'
 import UsersListItem from '/@/components/_modules/UsersListItem/UsersListItem'
-import { Wrapper, StyledList } from './UserList.styles'
+import { Wrapper, StyledList, StyledTitle } from './UserList.styles'
+import FormField from '../../_modules/FormField/FormField'
+import Button from '../../_elements/Button/Button'
 
-const UsersList = () => {
+const UsersList = ({ user, deleteUser }) => {
 	return (
-		<Wrapper>
+		<>
+			<StyledTitle>Employee List</StyledTitle>
 			<StyledList>
-				{users.map((userData, index) => (
-					<UsersListItem key={index} userData={userData} />
+				{user.map((userData, index) => (
+					<UsersListItem key={index} deleteUser={deleteUser} userData={userData} />
 				))}
 			</StyledList>
-		</Wrapper>
+		</>
 	)
 }
 

@@ -18,7 +18,7 @@ export const StyledInfo = styled.div`
 	padding: 25px 30px;
 	p {
 		margin: 0;
-		color: ${({ theme }) => theme.colors.userName};
+		color: ${({ theme }) => theme.colors.darkGrey};
 	}
 	p:first-child {
 		display: flex;
