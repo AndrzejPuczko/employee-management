@@ -1,21 +1,29 @@
-import { useState } from 'react'
-import { users as usersData } from '/@/data/Users'
+// import { useState } from 'react'
+// import { users as usersData } from '/@/data/Users'
+// import FormField from '../../_modules/FormField/FormField'
+// import Button from '../../_elements/Button/Button'
+import PropTypes from 'prop-types'
 import UsersListItem from '/@/components/_modules/UsersListItem/UsersListItem'
-import { Wrapper, StyledList, StyledTitle } from './UserList.styles'
-import FormField from '../../_modules/FormField/FormField'
-import Button from '../../_elements/Button/Button'
+import { StyledList } from './UserList.styles'
+import { UserShape } from '../../../types/types'
+import { Title } from '../../_elements/Title/Title'
 
-const UsersList = ({ user, deleteUser }) => {
+const UsersList = ({ user }) => {
 	return (
 		<>
-			<StyledTitle>Employee List</StyledTitle>
+			<Title>Employee List</Title>
 			<StyledList>
 				{user.map((userData, index) => (
-					<UsersListItem key={index} deleteUser={deleteUser} userData={userData} />
+					<UsersListItem key={index} userData={userData} />
 				))}
 			</StyledList>
 		</>
 	)
+}
+
+UsersList.propTypes = {
+	users: PropTypes.arrayOf(PropTypes.shape(UserShape)),
+	deleteUser: PropTypes.func,
 }
 
 export default UsersList
