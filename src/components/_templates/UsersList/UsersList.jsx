@@ -8,10 +8,12 @@ import { StyledList } from './UserList.styles'
 import { UserShape } from '../../../types/types'
 import { Title } from '../../_elements/Title/Title'
 
+
 const UsersList = ({ user }) => {
 	return (
 		<>
 			<Title>Employee List</Title>
+			
 			<StyledList>
 				{user.map((userData, index) => (
 					<UsersListItem key={index} userData={userData} />
