@@ -2,31 +2,12 @@ import { useState, useEffect } from 'react'
 import Button from '../../_elements/Button/Button'
 import { NewsSectionHeader, Wrapper, ArticleWrapper, TitleWrapper, ContentWrapper } from './NewsSection.styles'
 import axios from 'axios'
-// const data = [
-// 	{
-// 		title: 'New computers in our company',
-// 		category: 'Tech news',
-// 		content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae voluptates a ut saepe illum voluptatum, voluptate officiis aspernatur nihil quisquam accusamus',
-// 		image: null,
-// 	},
-// 	{
-// 		title: 'in our company',
-// 		category: 'Tech news',
-// 		content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae voluptates a ut saepe illum voluptatum, voluptate officiis aspernatur nihil quisquam accusamus',
-// 		image: 'https://source.unsplash.com/featured/500x400',
-// 	},
-// 	{
-// 		title: 'New computers',
-// 		category: 'Lorem',
-// 		content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae voluptates a ut saepe illum voluptatum, voluptate officiis aspernatur nihil quisquam accusamus',
-// 		image: 'https://source.unsplash.com/featured/500x400',
-// 	},
-// ]
 
-const API_TOKEN = 'b08eb3be02687ffdd1218c13db3177'
+const API_KEY = process.env.API_KEY
 
 const NewsSection = () => {
 	const [articles, setArticles] = useState([])
+	const [error, setError] = useState('')
 
 	useEffect(() => {
 		axios
@@ -49,32 +30,38 @@ const NewsSection = () => {
 				},
 				{
 					headers: {
-						Authorization: `Bearer ${API_TOKEN}`,
+						Authorization: `Bearer ${API_KEY}`,
 					},
 				}
 			)
 			.then(({ data: { data } }) => {
 				setArticles(data.allArticles)
 			})
-			.catch(err => console.log(err))
-	})
+			.catch(() => {
+				setError('Sorry, we couldn`t load articles for you')
+			})
+	}, [])
 
 	return (
 		<Wrapper>
 			<NewsSectionHeader>Company news</NewsSectionHeader>
-			{articles.map(({ title, category, content, image = null }) => (
-				<ArticleWrapper key={title}>
-					<TitleWrapper>
-						<h3>{title}</h3>
-						<p>{category}</p>
-					</TitleWrapper>
-					<ContentWrapper>
-						<p>{content}</p>
-						{image && <img src={image.url} alt="article" />}
-					</ContentWrapper>
-					<Button isBig>Click me</Button>
-				</ArticleWrapper>
-			))}
+			{articles.length > 0 ? (
+				articles.map(({ title, category, content, image = null }) => (
+					<ArticleWrapper key={title}>
+						<TitleWrapper>
+							<h3>{title}</h3>
+							<p>{category}</p>
+						</TitleWrapper>
+						<ContentWrapper>
+							<p>{content}</p>
+							{image && <img src={image.url} alt="article" />}
+						</ContentWrapper>
+						<Button isBig>Click me</Button>
+					</ArticleWrapper>
+				))
+			) : (
+				<NewsSectionHeader>{error ? error : 'Loading...'}</NewsSectionHeader>
+			)}
 		</Wrapper>
 	)
 }
