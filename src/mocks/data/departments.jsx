@@ -1,0 +1,1 @@
+export const departments = ['A', 'B', 'C'];
