@@ -6,11 +6,14 @@ import { ThemeProvider } from 'styled-components'
 import { theme } from './assets/styles/theme'
 import { Wrapper } from './App.styles'
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import MainLayout from './components/layouts/MainLayout/MainLayout'
 import Dashboard from './Views/Dashboard'
 import AddUser from './Views/AddUser'
-import UsersProvider from './providers/UsersProvider'
+
+import { worker } from './mocks/browser'
+
+worker.start()
 
 const App = () => {
 	return (
@@ -18,14 +21,15 @@ const App = () => {
 			<ThemeProvider theme={theme}>
 				<GlobalStyle />
 				<MainLayout>
-					<UsersProvider>
-						<Wrapper>
-							<Routes>
-								<Route path="/add-user" element={<AddUser />} />
-								<Route path="/" element={<Dashboard />} />
-							</Routes>
-						</Wrapper>
-					</UsersProvider>
+					<Wrapper>
+						<Routes>
+							<Route path="/" element={<Navigate to="/departments" />} />
+							<Route path="/add-user" element={<AddUser />} />
+							<Route path="/departments/" element={<Dashboard />}>
+								<Route path=":id?" element={<Dashboard />} />
+							</Route>
+						</Routes>
+					</Wrapper>
 				</MainLayout>
 			</ThemeProvider>
 		</Router>
