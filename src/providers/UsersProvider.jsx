@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { users as usersData } from '../data/users'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export const UsersContext = React.createContext({
 	user: [],
@@ -8,7 +8,11 @@ export const UsersContext = React.createContext({
 })
 
 const UsersProvider = ({ children }) => {
-	const [user, setUser] = useState(usersData)
+	const [user, setUser] = useState([])
+
+	useEffect(() => {
+		axios.get('/employees').then(({ data }) => setUser(data.employees))
+	}, [])
 
 	const deleteUser = filteredId => {
 		setUser(prevState => prevState.filter(user => user.id !== filteredId))
