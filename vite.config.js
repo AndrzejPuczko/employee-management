@@ -3,6 +3,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import path from 'path'
+
+
+
 dotenv.config()
 
 export default defineConfig({
@@ -18,5 +21,8 @@ export default defineConfig({
 	},
 	define: {
 		'process.env': process.env,
+	},
+	optimizeDeps: {
+		include: ['downshift'],
 	},
 })
